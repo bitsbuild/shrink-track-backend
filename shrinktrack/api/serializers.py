@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
-from api.models import UrlConvertInstance
-class ConvertInstanceSerializer(ModelSerializer):
+from api.models import ShrinkInstanceModel
+class ShrinkInstanceSerializer(ModelSerializer):
     class Meta:
-        model = UrlConvertInstance
+        model = ShrinkInstanceModel
         fields = '__all__'
