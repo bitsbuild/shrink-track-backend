@@ -3,4 +3,9 @@ from api.models import ShrinkInstanceModel
 class ShrinkInstanceSerializer(ModelSerializer):
     class Meta:
         model = ShrinkInstanceModel
-        fields = '__all__'
+        fields = [
+            'original_url',
+        ]
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)

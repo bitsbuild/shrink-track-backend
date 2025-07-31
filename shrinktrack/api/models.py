@@ -6,5 +6,5 @@ class ShrinkInstanceModel(models.Model):
     user = models.ForeignKey(User,related_name='urls',on_delete=models.CASCADE)
     original_url = models.URLField(blank=False,editable=True,unique=True)
     shrinked_url = models.URLField(blank=False,editable=False,unique=True,null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True,editable=False,blank=False)
+    updated = models.DateTimeField(auto_now=True,editable=False,blank=False)
