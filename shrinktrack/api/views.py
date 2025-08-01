@@ -5,11 +5,12 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK,HTTP_400_BAD_REQUEST
 from rest_framework.permissions import IsAuthenticated
 from api.unique_code import generate_unique_code
-from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 class ShrinkInstanceViewset(ModelViewSet):
     queryset = ShrinkInstanceModel.objects.all()
     serializer_class = ShrinkInstanceSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class =  PageNumberPagination
     def create(self, request, *args, **kwargs):
         try:
             unique_code = generate_unique_code()
@@ -23,7 +24,8 @@ class ShrinkInstanceViewset(ModelViewSet):
             self.perform_create(serializer)
             return Response(
                 {
-                "Status":"Shrinked URL Generated Successfully"
+                "Status":"Shrinked URL Generated Successfully",
+                "Shrinked URL":shrinked_url
                 },status=HTTP_200_OK)
         except Exception as e:
             return Response(
