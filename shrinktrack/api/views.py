@@ -12,18 +12,16 @@ class ShrinkInstanceViewset(ModelViewSet):
     permission_classes = [IsAuthenticated]
     def create(self, request, *args, **kwargs):
         try:
-            serializer = self.get_serializer(data=request.data)
+            unique_code = generate_unique_code()
+            shrinked_url = request.build_absolute_uri(f'/{unique_code}/')
+            data = {
+                "original_url":request.data['original_url'],
+                "shrinked_url":shrinked_url
+            }
+            serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
-            obj = ShrinkInstanceModel.objects.get(original_url=request.data['original_url'])
-            unique_code = generate_unique_code()
-            obj.shrinked_url = request.build_absolute_uri(f'/{unique_code}/')
-            obj.save()
-            return Response(
-                {
-                    "Status":"URL Shrinked Successfuly"
-                },status=HTTP_200_OK
-            )
+            return Response({"test":"test"},status=HTTP_200_OK)
         except Exception as e:
             return Response(
                 {
@@ -31,6 +29,9 @@ class ShrinkInstanceViewset(ModelViewSet):
                     "Error":str(e)
                 },status=HTTP_400_BAD_REQUEST
             )
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        return super().perform_create(serializer)
 @api_view(['POST'])
 def redirect(request):
     pass

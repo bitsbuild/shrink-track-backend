@@ -5,7 +5,5 @@ class ShrinkInstanceSerializer(ModelSerializer):
         model = ShrinkInstanceModel
         fields = [
             'original_url',
+            'shrinked_url'
         ]
-    def create(self, validated_data):
-        validated_data['user'] = self.context['request'].user
-        return super().create(validated_data)
