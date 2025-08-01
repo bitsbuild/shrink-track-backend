@@ -21,7 +21,10 @@ class ShrinkInstanceViewset(ModelViewSet):
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
-            return Response({"test":"test"},status=HTTP_200_OK)
+            return Response(
+                {
+                "Status":"Shrinked URL Generated Successfully"
+                },status=HTTP_200_OK)
         except Exception as e:
             return Response(
                 {
@@ -31,7 +34,3 @@ class ShrinkInstanceViewset(ModelViewSet):
             )
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        return super().perform_create(serializer)
-@api_view(['POST'])
-def redirect(request):
-    pass
