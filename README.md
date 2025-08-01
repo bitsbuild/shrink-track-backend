@@ -1,6 +1,6 @@
 # 🔗 Shrink Track Backend
 
-A secure, authenticated URL shortener API built with Django REST Framework. It supports automatic short URL generation, redirection logic, and per-user rate limiting.
+A secure, authenticated URL shortener API built with Django REST Framework. It supports automatic short URL generation, redirection logic, and per-user rate limiting
 
 ---
 
